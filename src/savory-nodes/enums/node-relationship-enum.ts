@@ -1,6 +1,6 @@
 import { registerEnumType } from "@nestjs/graphql";
 
-enum NodeRelationship {
+export enum NodeRelationshipType {
   LIBRARY_FORM = "LIBRARY_FORM",
   LIBRARY_DATAELEMENT = "LIBRARY_DATAELEMENT",
   LIBRARY_DATATYPE = "LIBRARY_DATATYPE",
@@ -9,15 +9,7 @@ enum NodeRelationship {
   DATAPOINT_MAPPINGPATH = "DATATPOINT_MAPPINGPATH",
 }
 
-registerEnumType(NodeRelationship, {
-  name: "NodeRelationship",
+registerEnumType(NodeRelationshipType, {
+  name: "NodeRelationshipType",
   description: "Types of relationships between nodes",
-  // valuesConfig: {
-  //   LIBRARY: {
-  //     deprecationReason: "Replaced with Left or Right",
-  //   },
-  //   FORM: {
-  //     description: "The other left",
-  //   },
-  // },
 });

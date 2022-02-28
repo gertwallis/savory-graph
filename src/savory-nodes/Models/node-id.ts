@@ -1,13 +1,13 @@
 import { InputType } from "@nestjs/graphql";
-import {NodeType} from "./../enums/node-type-enum"
+import {NodeTypeEnum} from "../enums/node-type-enum"
 
 @InputType()
-class NodeId {
+export class NodeId {
 
-  type: NodeType;
+  type: NodeTypeEnum;
   hash: number;
 
-  constructor(type: NodeType, hash: number) {
+  constructor(type: NodeTypeEnum, hash: number) {
     this.type = type;
     this.hash = hash;
   }

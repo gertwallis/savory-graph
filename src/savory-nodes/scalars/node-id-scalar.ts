@@ -1,6 +1,7 @@
+import { NodeTypeEnum } from './../enums/node-type-enum';
 import { GraphQLScalarType, Kind } from "graphql";
 
-export const nodeIdScalar = new GraphQLScalarType({
+export const NodeIdScalar = new GraphQLScalarType({
   name: "NodeId",
   description:
     "Id of a node consisting of it's type and hash. Example: 'dataValue:123456'",
@@ -11,7 +12,7 @@ export const nodeIdScalar = new GraphQLScalarType({
     // }
 
     // return value.toHexString(); // value sent to the client
-    console.log("nodeIdScalar.serialize():" + value);
+    console.log("NodeIdScalar.serialize():" + value);
     return "idvalue" + value;
   },
 
@@ -32,8 +33,15 @@ export const nodeIdScalar = new GraphQLScalarType({
     //   throw new Error("ObjectIdScalar can only parse string values");
     // }
     // return new ObjectId(ast.value); // value from the client query
+    console.log("---------------------");
 
-    console.log("nodeIdScalar.parseLiteral():" + ast);
+    let idString = ast.loc.source.body.substring(ast.loc.start, ast.loc.end);
+    var split = idString.split(":")
+    console.log("Type:", split[0]);
+    console.log("Hash:", split[1]);
+    var  nodeType = NodeTypeEnum[split[0]];
+    console.log("Node Type:", nodeType);
+
     return Object;
   },
 });

@@ -1,26 +1,36 @@
 import { registerEnumType } from "@nestjs/graphql";
 
-export enum NodeType {
+export enum NodeTypeEnum {
   LIBRARY = "LIBRARY",
   FORM = "FORM",
   DATATYPE = "DATATYPE",
   DATAELEMENT = "DATAELEMENT",
   DATAPOINT = "DATATPOINT",
-  DATAVALUE = 'DATAVALUE',
+  DATAVALUE = "DATAVALUE",
   MAPPINGPATH = "MAPPINGPATH",
 }
 
-
-registerEnumType(NodeType, {
+registerEnumType(NodeTypeEnum, {
   name: "NodeType",
-  description: "Every node that is recognized",
-  
-  // valuesConfig: {
-  //   LIBRARY: {
-  //     deprecationReason: "Replaced with Left or Right",
-  //   },
-  //   FORM: {
-  //     description: "The other left",
-  //   },
-  // },
+  description: "Savory node",
+  valuesMap: {
+    LIBRARY: {
+      description: "Library Node: Entry point into the library dictionary",
+    },
+    FORM: {
+      description: "Form Node: FXL",
+    },
+    DATAELEMENT: { 
+      description: "DATAELEMENT"
+    },
+    DATAPOINT: { 
+      description: "DATATPOINT"
+    },
+    DATAVALUE: { 
+      description: "DATAVALUE"
+    },
+    MAPPINGPATH: { 
+      description: "MAPPINGPATH"
+    },
+  }
 });

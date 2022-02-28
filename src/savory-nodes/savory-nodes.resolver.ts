@@ -6,7 +6,7 @@ import { CreateNodeInput } from './dto/input/create-node.input';
 import { DeleteNodeInput } from './dto/input/delete-node.input';
 import { UpdateNodeInput } from './dto/input/update-node.input';
 
-import { SavoryNode } from "./Models/savory-node";
+import { SavoryNode } from "./models/savory-node";
 import { SavoryNodesService } from "./savory-nodes.service";
 
 @Resolver()

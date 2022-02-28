@@ -1,9 +1,11 @@
 import { Field, ID, Int, ObjectType} from "@nestjs/graphql";
+import { NodeIdScalar } from "../scalars/node-id-scalar";
+import { NodeId } from "./node-id";
 
 @ObjectType()
 export class SavoryNode {
-    @Field()
-    id: string;
+    @Field(type => NodeIdScalar)
+    id: NodeId;
 
     @Field()
     type : string;
