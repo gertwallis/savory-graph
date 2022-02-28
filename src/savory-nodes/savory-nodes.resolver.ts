@@ -1,6 +1,7 @@
 import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
-import { GetNodeArgs } from './dto/args/get-node-args';
-import { GetNodesArgs } from './dto/args/get-nodes.args';
+import { GetNodeIdArgs } from './dto/args/get-nodeid-args';
+import { GetNodesArgs } from "./dto/args/get-nodes.args";
+import { GetNodeTypeArgs } from './dto/args/get-nodetype-args';
 
 import { CreateNodeInput } from './dto/input/create-node.input';
 import { DeleteNodeInput } from './dto/input/delete-node.input';
@@ -12,18 +13,29 @@ import { SavoryNodesService } from "./savory-nodes.service";
 @Resolver()
 export class SavoryNodesResolver {
     constructor(private readonly nodesService: SavoryNodesService) {
-
     }
 
     @Query(() => SavoryNode, {name: 'node', nullable: true})
-    getNode(@Args() getNodeArgs: GetNodeArgs): SavoryNode {
-        return this.nodesService.getNode(getNodeArgs);
+    getNode(@Args() getNodeArgs: GetNodeIdArgs): SavoryNode {
+        return this.nodesService.getNodeById(getNodeArgs);
     }
 
     @Query(() => [SavoryNode], {name: 'nodes', nullable: 'items'})
     getNodes(@Args() getNodesargs: GetNodesArgs): SavoryNode[] {
         console.log('nodes');
-        return this.nodesService.getNodes(getNodesargs);
+        return this.nodesService.getNodesById(getNodesargs);
+    }
+
+    // @Query(() => [SavoryNode], {name: 'nodesById', nullable: 'items'})
+    // getNodesById(@Args() getNodesargs: GetNodesArgs): SavoryNode[] {
+    //     console.log('nodes');
+    //     return this.nodesService.getNodes(getNodesargs);
+    // }
+
+    @Query(() => [SavoryNode], {name: 'nodesByType', nullable: 'items'})
+    getNodesByType(@Args() getNodesargs: GetNodeTypeArgs): SavoryNode[] {
+        console.log('nodes');
+        return this.nodesService.getNodesByType(getNodesargs);
     }
 
     @Query(() => [SavoryNode], {name: 'allNodes', nullable: 'items'})

@@ -1,19 +1,14 @@
-import { NodeTypeEnum } from './../enums/node-type-enum';
+import { NodeType } from '../models/node-constants';
 import { GraphQLScalarType, Kind } from "graphql";
+import { NodeId } from '../models/node-id';
 
 export const NodeIdScalar = new GraphQLScalarType({
   name: "NodeId",
   description:
-    "Id of a node consisting of it's type and hash. Example: 'dataValue:123456'",
-  serialize(value: unknown): string {
-    // check the type of received value
-    // if (!(value instanceof ObjectId)) {
-    //   throw new Error("ObjectIdScalar can only serialize ObjectId values");
-    // }
-
-    // return value.toHexString(); // value sent to the client
+    "Id of a hash node as '<type>:<hash>'. Example: 'DATAVALUE:123456'",
+  serialize(value: NodeId): string {
     console.log("NodeIdScalar.serialize():" + value);
-    return "idvalue" + value;
+    return value.type + ":" + value.hash;
   },
 
   parseValue(value: unknown): Object {
@@ -27,21 +22,10 @@ export const NodeIdScalar = new GraphQLScalarType({
     return "something";
   },
 
-  parseLiteral(ast): Object {
-    // check the type of received value
-    // if (ast.kind !== Kind.STRING) {
-    //   throw new Error("ObjectIdScalar can only parse string values");
-    // }
-    // return new ObjectId(ast.value); // value from the client query
-    console.log("---------------------");
-
-    let idString = ast.loc.source.body.substring(ast.loc.start, ast.loc.end);
+  parseLiteral(ast): NodeId {
+    let idString = ast.loc.source.body.substring(ast.loc.start+1, ast.loc.end);
+    //console.log(idString);
     var split = idString.split(":")
-    console.log("Type:", split[0]);
-    console.log("Hash:", split[1]);
-    var  nodeType = NodeTypeEnum[split[0]];
-    console.log("Node Type:", nodeType);
-
-    return Object;
+    return new NodeId(split[0], parseInt(split[1],10));
   },
 });
